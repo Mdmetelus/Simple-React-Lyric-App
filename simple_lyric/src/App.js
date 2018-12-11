@@ -1,31 +1,35 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import NavBar from './Components/Layout/NavBar';
 import Index from './Components/Layout/Index';
+import { Provider } from './Context';
 
 import './App.css';
 
 class App extends Component {
   render() {
     return (
-      <Router>
-        <div className="App">
-          <>
-            <NavBar />
+      <Provider>
 
-            <div className="container" >
-              <Switch>
-                <Route exact path="/" container={Index} />
+        <Router>
+          <div className="App">
+            <>
+              <NavBar />
+
+              <div className="container" >
+                <Switch>
+                  <Route exact path="/" container={Index} />
 
 
-              </Switch>
+                </Switch>
 
 
-            </div>
-          </>
-        </div>
+              </div>
+            </>
+          </div>
         </Router>
+      </Provider>
     );
   }
 }

@@ -1,16 +1,25 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import axios from 'axios';
 
 const Context = react.createContext();
 
-export class Provider extends Component {
+class Provider extends Component {
     state ={
         track_list: [
         {track: {track_name: 'abc'}},
         {track: {track_name: '123'}}
 
         ],
-        heading: 'Top 10 tracks'
+        heading: 'Top 10 Tracks'
     };
+
+    // componentDidMount() {
+    //     axios.get(``)
+    //     .then(res => console.log(res.data))
+    //     .catch(err => console.log(err));
+    // }
+
+
   render() {
     return (
       <Context.Provider value={this.state}>
@@ -23,13 +32,5 @@ export class Provider extends Component {
 
 import React, { Component } from 'react'
 
-export class Consumer extends Component {
-  render() {
-    return (
-      <div>
-        
-      </div>
-    )
-  }
-}
+export const Consumer = Context.Consumer;
 

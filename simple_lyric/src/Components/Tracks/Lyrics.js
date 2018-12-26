@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import Spinner from '../Layout/Spinner';
+import Link from 'react-router-dom';
 
 export default class Lyrics extends Component {
-    state={
+    state = {
         track: {},
         lyrics: {}
     };
@@ -12,23 +14,34 @@ export default class Lyrics extends Component {
         .then(res => {
             // console.log(res.data);
             this.setState({ lyrics: res.data.message.body.lyrics});
-            return axios.get(`https://cors-anywhere.herokuapp.com/https://api.musixmatch.com/ws/1.1/track.get?track_id=${this.props.match.params.id}&apikey=${process.env.REACT_APP_MM_KEY}`)
-            .then(res => {
-                // console.log(res.data);
-                this.setState({ track: res.data.message.body.track});
+
+            return axios.get(
+                `https://cors-anywhere.herokuapp.com/https://api.musixmatch.com/ws/1.1/track.get?track_id=${this.props.match.params.id}&apikey=${process.env.REACT_APP_MM_KEY}`);
+            })
+        .then(res => {
+            // console.log(res.data);
+            this.setState({ track: res.data.message.body.track});
         })
         .catch(err => console.log(err));
-
     }
 
 
-  render() {
+
+    
+    render() {
       const { track, lyrics } = this.state;
-    return (
-      <div>
-          <h1>Lyrics:</h1>
-        
-      </div>
-    )
-  }
+      if(track === undefined || lyrics === undefined || Object.keys(track).length === 0 || Objects.keys(lyrycs).length) {
+        return <Spinner />
+      } else {
+        return(<React.Fragment>
+                <Link to="/" className="btn btn-dark btn-sm mb-4">Go Back</Link>
+                <div className="card" >
+                    <div className="card-header">
+                    {track.track_name} by <span className="text-secondary">{TextTrackList.artist_name}</span>
+                    </div>
+                </div>
+        </React.Fragment>);
+      }
+   
+    }
 }

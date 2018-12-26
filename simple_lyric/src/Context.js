@@ -3,7 +3,7 @@ import axios from 'axios';
 
 const Context = react.createContext();
 
-class Provider extends Component {
+export class Provider extends Component {
     state ={
         track_list: [
         {track: {track_name: 'abc'}},
@@ -34,5 +34,6 @@ class Provider extends Component {
 
 // import React, { Component } from 'react'
 
-export const Consumer = Context.Consumer;
+export  Consumer = Context.Consumer;
+// export
 

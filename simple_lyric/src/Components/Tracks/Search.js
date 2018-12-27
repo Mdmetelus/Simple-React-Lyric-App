@@ -7,6 +7,20 @@ export default class Search extends Component {
     state = {
         trackTitle: ''
     };
+    findTrack = (dispatch, event) => {
+        event.preventDefault();
+        axios.get(`http://api.musixmatch.com/ws/1.1/track.search?q_track${this.state.trackTitle}&page_size=15&page=1&s_track_rating=desc&apikey=${process.env.REACT_APP_MM_KEY}`
+        )
+        .then(res => {
+            console.log(res);
+            dispatch({
+                type: 'SEARCH_TRACKS',
+                payload: res.data.message.body.track_list
+            });  
+            this.setState({ trackTitle: '' })        
+        })
+        .catch(err => console.log(err));
+    }
 
     onChange = (event) => {
         this.setState({ [event.target.name]: event.target.value });
@@ -18,6 +32,8 @@ export default class Search extends Component {
     return (
         <Consumer>
             {value => {
+                console.log(value);
+                const { dispatch } = value
                 return (
                     <div className="card card-body mb-4 p-4">
                         <h1 className="display-4 text-center" >
@@ -25,7 +41,7 @@ export default class Search extends Component {
                             </i>
                         </h1>
                         <p className="lead text-center" >Get the Lyrics for any song</p>
-                        <form onSubmit={this.formSubmit} >
+                        <form onSubmit={this.findTrack.bind(this, dispatch)} >
                             <div className="form-group" >
                                 <input type="text" 
                                 className=" form-control form-control-lg" 

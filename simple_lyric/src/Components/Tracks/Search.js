@@ -6,7 +6,14 @@ import { Consumer } from '../../Context';
 export default class Search extends Component {
     state = {
         trackTitle: ''
+    };
+
+    onChange = (event) => {
+        this.setState({ [event.target.name]: event.target.value });
     }
+
+
+
   render() {
     return (
         <Consumer>
@@ -18,10 +25,20 @@ export default class Search extends Component {
                             </i>
                         </h1>
                         <p className="lead text-center" >Get the Lyrics for any song</p>
-                        <form  >
+                        <form onSubmit={this.formSubmit} >
                             <div className="form-group" >
-                                <input type="text" className=" form-control form-control-lg" placeholder="Spong Title..." name="trackTitle" value={this.state.trackTitle} ></input>
+                                <input type="text" 
+                                className=" form-control form-control-lg" 
+                                placeholder="Spong Title..." 
+                                name="trackTitle" 
+                                onChange={this.onChange.bind(this)}
+                                value={this.state.trackTitle} ></input>
                             </div>
+                            <button 
+                                className="btn btn-primary btn-lg btn-block mb-5" 
+                                type="submit"
+                                >
+                                Get Track List</button>
                         </form>
                     </div>
                 )
